@@ -1,0 +1,5 @@
+.env
+chroma_db_study/
+__pycache__/
+myenv
+.env
