@@ -1,0 +1,35 @@
+# Scientific computing
+numpy
+scikit-learn
+scipy
+
+# FastAPI & web server
+fastapi
+uvicorn
+starlette
+
+# LangChain ecosystem
+langchain
+langchain-chroma
+langchain-community
+langchain-core
+langchain-google-genai
+langchain-text-splitters
+
+# Google AI
+google-generativeai
+google-ai-generativelanguage
+
+# Vector database
+chromadb
+
+# HTTP requests
+requests
+httpx
+
+# Environment & config
+python-dotenv
+pydantic
+
+# Document processing
+PyYAML
