@@ -42,7 +42,6 @@ class UploadResponse(BaseModel):
     status: str
     sections_processed: int = 0
 
-# Routes
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Study RAG API", "status": "active"}
@@ -55,7 +54,6 @@ async def query_rag(request: QueryRequest):
     try:
         result = rag.get_response_with_sources(request.question)
         
-        # Limit the number of sources if requested
         if len(result["sources"]) > request.max_sources:
             result["sources"] = result["sources"][:request.max_sources]
             
@@ -69,16 +67,13 @@ async def upload_document(file: UploadFile = File(...)):
     Upload a document to be processed by the RAG system
     """
     try:
-        # Create directory if it doesn't exist
         os.makedirs("study_materials", exist_ok=True)
         
-        # Save the uploaded file
         file_path = os.path.join("study_materials", file.filename)
         
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
             
-        # Check file extension
         file_extension = os.path.splitext(file_path)[1].lower()
         if file_extension not in ['.pdf', '.txt', '.json', '.ppt', '.pptx']:
             os.remove(file_path)
@@ -87,15 +82,11 @@ async def upload_document(file: UploadFile = File(...)):
                 detail=f"Unsupported file type: {file_extension}. Supported types: .pdf, .txt, .json, .ppt, .pptx"
             )
         
-        # Process the document
         try:
-            # Save the current count of documents in the vector store
             current_count = len(rag.vectorstore.get()["ids"]) if rag.vectorstore.get() else 0
             
-            # Process the document
             processor.process_document(file_path)
             
-            # Get the new count to calculate how many sections were processed
             new_count = len(rag.vectorstore.get()["ids"]) if rag.vectorstore.get() else 0
             sections_processed = new_count - current_count
             

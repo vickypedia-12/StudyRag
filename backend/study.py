@@ -152,7 +152,7 @@ class StudyRAG:
             doc_contents = "\n\n".join([f"Document from {doc['source']}:\n{doc['content']}" for doc in docs])
             
             model = ChatGoogleGenerativeAI(
-                model="gemini-1.5-pro", 
+                model="gemini-2.5-pro", 
                 temperature=0.3,
                 google_api_key=os.environ["GOOGLE_API_KEY"]
             )

@@ -119,6 +119,7 @@ faq_data = [
     }
 ]
 
+@st.cache_data(ttl=60)
 def load_documents():
     """Load documents from the API"""
     try:
